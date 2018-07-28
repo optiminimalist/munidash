@@ -1,3 +1,4 @@
+import itertools
 import pickle
 import time
 from typing import List, Iterator
@@ -27,6 +28,16 @@ class VehicleCache:
         pickled_vehicles = self.r.lrange(route_tag, 0, self.r.llen(route_tag))
 
         return map(pickle.loads, pickled_vehicles)
+
+    def get_all_vehicles(self) -> Iterator[Vehicle]:
+
+        return map(pickle.loads, itertools.chain(
+            *[
+                self.r.lrange(route_tag, 0, self.r.llen(route_tag))
+                for route_tag in MUNI_METRO_ROUTES
+            ]
+        ))
+
 
     def get_last_updated_time(self):
         return self.r.get("last_updated_time")
