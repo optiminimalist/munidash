@@ -1,14 +1,17 @@
 from collections import namedtuple
-from enum import Enum
+from enum import IntEnum, Enum
 
 VehicleTuple = namedtuple("Vehicle", "lat lon route_tag vehicle_id direction_tag secs_since_report heading speed")
+
 
 class VehicleDirection(Enum):
     INBOUND = 1
     OUTBOUND = 2
 
+
 class UnknownVehicleDirectionException(Exception):
     pass
+
 
 class Vehicle(VehicleTuple):
     @staticmethod
@@ -26,3 +29,13 @@ class Vehicle(VehicleTuple):
             return VehicleDirection.OUTBOUND
 
         raise UnknownVehicleDirectionException()
+
+    def _asdict(self):
+        parent_dict = super(Vehicle, self)._asdict()
+
+        return {
+            **parent_dict,
+            **{
+                'direction': self.direction.name
+            }
+        }

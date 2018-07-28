@@ -41,9 +41,15 @@
 
             $.each(data, function(i, d) {
                 vehicles.push([d.lat, d.lon, 10]);
+
+                var marker = L.marker([d.lat, d.lon]).
+                bindTooltip(d.route_tag + " " + d.direction, {"permanent": false, "direction": "top"}).
+                addTo(map);
             });
 
             var heat = L.heatLayer(vehicles, {radius: 25}).addTo(map);
+
+
         });
 
 
