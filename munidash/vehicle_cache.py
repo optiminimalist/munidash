@@ -1,15 +1,16 @@
 import pickle
-from typing import List
+import time
+from typing import List, Iterator
 
 import redis
 
-from munidash.config import MUNI_METRO_ROUTES
+from munidash.config import MUNI_METRO_ROUTES, REDIS_URL
 from munidash.vehicle import Vehicle
 
 
 class VehicleCache:
     def __init__(self):
-        self.r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        self.r = redis.Redis(host=REDIS_URL.hostname, port=REDIS_URL.port, password=REDIS_URL.password)
 
     def update_vehicles(self, list_of_vehicles: List[Vehicle]):
         for route_tag in MUNI_METRO_ROUTES:
@@ -20,7 +21,13 @@ class VehicleCache:
         for vehicle in list_of_vehicles:
             self.r.lpush(vehicle.route_tag, pickle.dumps(vehicle))
 
-    def get_vehicles_by_route_tag(self, route_tag: str) -> List[Vehicle]:
+        self.r.set("last_updated_time", time.time())
+
+    def get_vehicles_by_route_tag(self, route_tag: str) -> Iterator[Vehicle]:
         pickled_vehicles = self.r.lrange(route_tag, 0, self.r.llen(route_tag))
 
         return map(pickle.loads, pickled_vehicles)
+
+    def get_last_updated_time(self):
+        return self.r.get("last_updated_time")
+
