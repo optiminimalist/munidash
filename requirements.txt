@@ -5,7 +5,9 @@ Flask==1.0.2
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
+mock==2.0.0
 more-itertools==4.2.0
+pbr==4.2.0
 pluggy==0.6.0
 py==1.5.4
 pytest==3.6.4
