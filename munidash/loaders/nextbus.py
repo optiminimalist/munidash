@@ -7,17 +7,27 @@ from munidash.vehicle import Vehicle
 from munidash.vehicle_cache import VehicleCache
 from munidash.config import MUNI_METRO_ROUTES
 
+
 def fetch_nextbus_data() -> str:
-    return requests.get("http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&t=0").text
+    return requests.get(
+        "http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&t=0"
+    ).text
+
+
+def filter_nextbus_data(vehicle: ET.Element) -> bool:
+    # TODO add whether trains are 1 or 2 car
+    if all([
+        vehicle.attrib.get('routeTag') in MUNI_METRO_ROUTES,
+        vehicle.attrib.get('leadingVehicleId', None) is None,
+    ]):
+        return True
+    else:
+        return False
 
 
 def parse_nextbus_data(nextbus_data: str) -> Iterator[Vehicle]:
     vehicles_elements = ET.fromstring(nextbus_data)
-    muni_metro_elements = [
-        vehicle
-        for vehicle in vehicles_elements
-        if vehicle.attrib.get('routeTag') in MUNI_METRO_ROUTES
-    ]
+    muni_metro_elements = filter(filter_nextbus_data, vehicles_elements)
     vehicles = map(Vehicle.from_nextbus_response, muni_metro_elements)
     return vehicles
 

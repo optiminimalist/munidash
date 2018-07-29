@@ -24,7 +24,7 @@ def get_all_vehicles():
     return jsonify(
         [
             vehicle._asdict()
-            for vehicle in vehicle_cache.get_all_vehicles()
+            for vehicle in vehicle_cache.get_vehicles_by_route_tag('N')
         ]
     )
 

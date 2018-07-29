@@ -13,7 +13,7 @@ class VehicleCache:
     def __init__(self):
         self.r = redis.Redis(host=REDIS_URL.hostname, port=REDIS_URL.port, password=REDIS_URL.password)
 
-    def update_vehicles(self, list_of_vehicles: List[Vehicle]):
+    def update_vehicles(self, list_of_vehicles: Iterator[Vehicle]):
         for route_tag in MUNI_METRO_ROUTES:
             if self.r.llen(route_tag) > 0:
                 print(f"Deleting {route_tag}")

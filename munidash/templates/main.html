@@ -25,42 +25,7 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-<script>
-
-        var map = L.map('map').setView([37.757921, -122.434762], 13);
-        mapLink =
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        L.tileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 18,
-            }).addTo(map);
-
-        $.get('/all_vehicles.json', function(data){
-            var vehicles = [];
-
-            $.each(data, function(i, d) {
-                vehicles.push([d.lat, d.lon, 10]);
-
-                var marker = L.marker([d.lat, d.lon]).
-                bindTooltip(d.route_tag + " " + d.direction, {"permanent": false, "direction": "top"}).
-                addTo(map);
-            });
-
-            var heat = L.heatLayer(vehicles, {radius: 25}).addTo(map);
-
-
-        });
-
-
-         {% for vehicle in vehicles %}
-{#             var marker = L.marker([{{ vehicle.lat }}, {{ vehicle.lon }}]).#}
-{#             bindTooltip("{{ vehicle.route_tag }}", {"permanent": false, "direction": "top"}).#}
-{#             addTo(map);#}
-             {% endfor %}
-
-
-
+<script src="/static/js/application.js">
 </script>
 </body>
 </html>
