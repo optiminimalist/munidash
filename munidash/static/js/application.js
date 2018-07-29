@@ -20,13 +20,15 @@ $(function(){
           shadowSize: [41, 41]
         });
 
-        var map = L.map('map').setView([37.757921, -122.434762], 13);
+        var map = L.map('map').setView([37.774056, -122.437317], 13);
+
         mapLink =
             '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 18,
+            maxZoom: 17,
             }).addTo(map);
 
         $.get('/all_vehicles.json', function(data){
