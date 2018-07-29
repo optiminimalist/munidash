@@ -1,30 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     <title>MuniDash</title>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
     <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        html, body, #map {
-            height: 100%;
-            width: 100%;
+        html, body, #container {
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
         }
 
+        #map {
+          width: auto;
+          <!--height: 100%;-->
+          box-shadow: 0 0 10px rgba(0,0,0,0.5);
+          height: 400px;
+
+        }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 <body>
-<div id="map"></div>
+
+<div class="container">
+    <div id="map-area" class="span6 pull-right">
+    </div>
+
+  <div class="row h-100">
+    <div class="col-lg-auto h-100 w-100">
+        <div id="map"></div>
+    </div>
+    <div class="col-sm well">
+        <div class="well">
+          <h1>Twitter</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis provident quasi quod sint? Amet consequatur doloremque ea enim, esse fuga ipsum itaque, magnam mollitia porro quibusdam, rem unde velit!
+            </p>
+
+
+        </div>
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
+
+
 <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
         integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
         crossorigin=""></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js">
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="/static/js/application.js">
 </script>
 </body>
