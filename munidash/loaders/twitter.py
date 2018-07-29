@@ -17,7 +17,7 @@ def fetch_twitter_data() -> str:
                       access_token_key=TWITTER_ACCESS_TOKEN,
                       access_token_secret=TWITTER_ACCESS_TOKEN_SECRET)
 
-    return api.GetUserTimeline('sfmta_muni')
+    return api.GetUserTimeline(screen_name='sfmta_muni')
 
 
 def filter_nextbus_data(vehicle: ET.Element) -> bool:
