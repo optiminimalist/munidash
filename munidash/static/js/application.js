@@ -34,7 +34,7 @@ $(function(){
         $.get('/all_vehicles.json', function(data){
             var vehicles = [];
 
-            $.each(data, function(i, d) {
+            $.each(data['vehicles'], function(i, d) {
                 vehicles.push([d.lat, d.lon, 10]);
 
                 var icon;
@@ -48,10 +48,12 @@ $(function(){
                 var marker = L.marker([d.lat, d.lon], {icon: icon}).
                 bindTooltip(d.route_tag + " " + d.direction, {"permanent": false, "direction": "top"}).
                 addTo(map);
+
+
             });
 
             var heat = L.heatLayer(vehicles, {radius: 25}).addTo(map);
-
+            $("#last_updated_time").html(data['last_updated_time']);
 
         });
 

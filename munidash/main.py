@@ -3,6 +3,7 @@ from operator import attrgetter
 from flask import Flask, jsonify, render_template
 
 from munidash.vehicle_cache import VehicleCache
+import datetime
 
 app = Flask(__name__)
 
@@ -22,10 +23,14 @@ def get_all_vehicles():
     vehicle_cache = VehicleCache()
 
     return jsonify(
-        [
+    {
+        "vehicles": [
             vehicle._asdict()
             for vehicle in vehicle_cache.get_vehicles_by_route_tag('N')
-        ]
+        ],
+        "last_updated_time": datetime.datetime.utcfromtimestamp(float(vehicle_cache.get_last_updated_time()))
+    }
+
     )
 
 
