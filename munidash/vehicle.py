@@ -7,6 +7,7 @@ VehicleTuple = namedtuple("Vehicle", "lat lon route_tag vehicle_id direction_tag
 class VehicleDirection(Enum):
     INBOUND = 1
     OUTBOUND = 2
+    UNKNOWN - 3
 
 
 class UnknownVehicleDirectionException(Exception):
@@ -29,7 +30,7 @@ class Vehicle(VehicleTuple):
             if "O" in self.direction_tag:
                 return VehicleDirection.OUTBOUND
         except:
-            return None
+            return VehicleDirection.UNKNOWN
 
     def _asdict(self):
         parent_dict = super(Vehicle, self)._asdict()
