@@ -23,12 +23,13 @@ class Vehicle(VehicleTuple):
 
     @property
     def direction(self) -> VehicleDirection:
-        if "I" in self.direction_tag:
-            return VehicleDirection.INBOUND
-        if "O" in self.direction_tag:
-            return VehicleDirection.OUTBOUND
-
-        raise UnknownVehicleDirectionException()
+        try:
+            if "I" in self.direction_tag:
+                return VehicleDirection.INBOUND
+            if "O" in self.direction_tag:
+                return VehicleDirection.OUTBOUND
+        except:
+            return None
 
     def _asdict(self):
         parent_dict = super(Vehicle, self)._asdict()
